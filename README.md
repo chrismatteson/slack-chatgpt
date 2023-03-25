@@ -1,2 +1,3 @@
-# slack-chatgpt-chatbot
-A Slack Chatbot written with Fermyon Spin for interacting with ChatGPT
+## HTTP-TS template
+
+This is a simple template to get started with spin-js-sdk using typescript.

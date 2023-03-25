@@ -1,0 +1,32 @@
+spin_version = "1"
+authors = ["Fermyon Engineering <engineering@fermyon.com>"]
+name = "spin-chatbot-webinar"
+trigger = { type = "http", base = "/" }
+version = "1.0.22"
+
+[variables]
+openai_key = { default = "env" }
+slack_token = { default = "env" }
+
+[[component]]
+id = "hello"
+source = "target/spin-http-js.wasm"
+files = ["src/index.html"]
+allowed_http_hosts = ["https://api.openai.com"]
+key_value_stores = ["default"]
+[component.config]
+openai_key = "{{ openai_key }}"
+slack_token = "{{ slack_token }}"
+[component.trigger]
+route = "/"
+[component.build]
+command = "npm run build"
+
+# Spin KV explorer component
+[[component]]
+source = { url = "https://github.com/radu-matei/spin-kv-explorer/releases/download/v0.5.0/spin-kv-explorer.wasm", digest = "sha256:d5f9e1f6b61b90f7404e3800285f7860fe2cfc7d0116023efc370adbb403fe87" }
+id = "kv-explorer"
+# add or remove stores you want to explore here
+key_value_stores = ["default"]
+[component.trigger]
+route = "/internal/kv-explorer/..."
