@@ -2,7 +2,7 @@ spin_version = "1"
 authors = ["Fermyon Engineering <engineering@fermyon.com>"]
 name = "spin-chatbot-webinar"
 trigger = { type = "http", base = "/" }
-version = "1.0.22"
+version = "1.0.23"
 
 [variables]
 openai_key = { default = "env" }

@@ -16,24 +16,17 @@ interface Conversation {
 }
 
 export const handleRequest: HandleRequest = async function(request: HttpRequest): Promise<HttpResponse> {
-    console.log(decoder.decode(request.body))
     let openai_key = ""
-    console.log(spinSdk.config.get("openai_key"))
     if ( spinSdk.config.get("openai_key") == "env" ) {
-      console.log("opening KV")
       let kv = spinSdk.kv.openDefault();
-      console.log("opened KV")
       console.log("no config for openai_key, using kv")
       openai_key = decoder.decode(kv.get("openai_key"))
     } else {
       openai_key = spinSdk.config.get("openai_key")
     }
     let slack_token = ""
-    console.log(spinSdk.config.get("slack_token"))
     if ( spinSdk.config.get("slack_token") == "env" ) {
-      console.log("opening KV")
       let kv = spinSdk.kv.openDefault();
-      console.log("opened KV")
       console.log("no config for slack_token, using kv")
       slack_token = decoder.decode(kv.get("slack_token"))
     } else {
@@ -54,7 +47,6 @@ export const handleRequest: HandleRequest = async function(request: HttpRequest)
     // Read the conversation ID and message from the request body.
     let p = parsedData.get("text") || "prompt missing"
     
-    console.log(p)
     let chat: Conversation;
     chat = { id: 'id', prompts: [] }
     chat.prompts.push({ speaker: 'user', message: p });
