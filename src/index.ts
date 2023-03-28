@@ -47,6 +47,11 @@ export const handleRequest: HandleRequest = async function(request: HttpRequest)
     // Read the conversation ID and message from the request body.
     let p = parsedData.get("text") || "prompt missing"
     
+    if (p == "prompt missing") {
+      console.log("Prompt missing from request")
+      return { status: 500, body: encoder.encode("Prompt missing from request").buffer }
+    }
+
     let chat: Conversation;
     chat = { id: 'id', prompts: [] }
     chat.prompts.push({ speaker: 'user', message: p });
